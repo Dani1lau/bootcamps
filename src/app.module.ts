@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { BootcampsModule } from './bootcamps/bootcamps.module';
 import {TypeOrmModule} from '@nestjs/typeorm';
+import { CoursesModule } from './courses/courses.module';
+import { ReviewsModule } from './reviews/reviews.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -12,11 +15,14 @@ import {TypeOrmModule} from '@nestjs/typeorm';
       password: '',
       database: 'bootcamps_Ptech',
       entities: [],
-      synchronize: true,
+      synchronize: false,
       autoLoadEntities: true,
-      dropSchema: true
+      dropSchema: false
     }),
-    BootcampsModule
+    BootcampsModule,
+    CoursesModule,
+    ReviewsModule,
+    UsersModule
   ],
   controllers: [],
   providers: [],

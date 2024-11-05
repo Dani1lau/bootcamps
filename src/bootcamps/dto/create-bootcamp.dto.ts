@@ -1,1 +1,10 @@
-export class CreateBootcampDto {}
+export class CreateBootcampDto {
+
+    readonly phone : number
+    readonly name: string
+    readonly averageRatig : number
+    readonly address : string
+    readonly topics : string
+    readonly createAt : Date
+
+}

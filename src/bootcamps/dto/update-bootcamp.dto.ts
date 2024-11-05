@@ -1,4 +1,10 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateBootcampDto } from './create-bootcamp.dto';
+export class UpdateBootcampDto {
 
-export class UpdateBootcampDto extends PartialType(CreateBootcampDto) {}
+    readonly phone? : number
+    readonly name?: string
+    readonly averageRatig? : number
+    readonly address? : string
+    readonly topics? : string
+    readonly createAt? : Date
+
+}
