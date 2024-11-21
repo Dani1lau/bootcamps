@@ -1,26 +1,52 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './entities/user.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
+
+  constructor(@InjectRepository(User) private userRepository: Repository<User>) { }
+
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+    //crear la instancia del objeto a guardar
+    const nuevoUser =
+      this.userRepository.create(createUserDto);
+
+    return this.userRepository.save(nuevoUser);
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.userRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    return this.userRepository.findOneBy({ id: id });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    //seleccionar el objeto o el usuario
+    //cuyo id sea el del parametro
+    const updUser = await this.userRepository.findOneBy({ id })
+
+    //fucionar los cambios con el objeto hallado
+    await this.userRepository.merge(updUser, updateUserDto)
+
+    //grabar cambios en bd
+
+    this.userRepository.save(updUser)
+
+    return updUser
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    const course = await this.userRepository.findOneBy({ id });
+
+
+    await this.userRepository.delete(id);
+
+    return { message: `Usuario con id ${id} ha sido eliminado` };
   }
 }

@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Course } from "src/courses/entities/course.entity";
+import { Review } from "src/reviews/entities/review.entity";
+import { User } from "src/users/entities/user.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Bootcamp {
@@ -39,5 +42,14 @@ topics: string
 })
 createAt: Date
 
+//Los cursos de un bootcamp
+@OneToMany(()=> Course, (curso : Course)=> curso.bootcamp)
+cursos: Course[]
+
+@OneToMany(()=> Review, (review : Review)=> review.bootcamp)
+review: Review[]
+
+@ManyToOne(()=> User, (user : User)=> user.bootcamp)
+user: User[]
 
 }

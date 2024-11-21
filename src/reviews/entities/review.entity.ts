@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Bootcamp } from "src/bootcamps/entities/bootcamp.entity";
+import { User } from "src/users/entities/user.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Review {
@@ -24,4 +26,9 @@ export class Review {
     })
     reating: number
 
+    @ManyToOne(()=>Bootcamp, (bootcamp : Bootcamp)=> bootcamp.review)
+    bootcamp: Bootcamp
+
+    @ManyToOne(()=> User, (user : User)=> user.review)
+    user: User[]
 }

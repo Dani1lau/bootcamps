@@ -15,9 +15,9 @@ import { UsersModule } from './users/users.module';
       password: '',
       database: 'bootcamps_Ptech',
       entities: [],
-      synchronize: false,
+      synchronize: true,
       autoLoadEntities: true,
-      dropSchema: false
+      dropSchema: true
     }),
     BootcampsModule,
     CoursesModule,
